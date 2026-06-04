@@ -1,0 +1,69 @@
+@import "tailwindcss";
+.custom-daypicker {
+  --rdp-cell-size: 38px;
+  font-family: sans-serif;
+  background-color: #f5f5f7;
+  padding: 10px;
+  border-radius: 10px;
+  margin:0px 10px;
+}
+
+.rdp {
+  margin: 0;
+}
+
+.rdp-caption {
+  font-weight: 700;
+  font-size: 18px;
+  color: #111827;
+}
+
+.rdp-head_cell {
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rdp-day {
+  border-radius: 9999px;
+  font-size: 14px;
+  color: #111827;
+  position: relative;
+}
+
+.rdp-day_selected {
+  background: #2563eb !important;
+  color: white !important;
+}
+
+.rdp-day:hover {
+  background: #dbeafe;
+}
+
+.rdp-day_outside {
+  color: #d1d5db;
+}
+
+.paid-day::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 9999px;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pending-day::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #ec4899;
+  border-radius: 9999px;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
