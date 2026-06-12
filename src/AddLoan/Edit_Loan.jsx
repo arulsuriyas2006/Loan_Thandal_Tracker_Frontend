@@ -1,11 +1,13 @@
-import { IndianRupeeIcon,Plus } from "lucide-react";
-import { useState } from "react";
-import {toast,ToastContainer}  from 'react-toastify';
-import axios from "axios";
-import {useNavigate, useParams} from "react-router-dom"
-import { useEffect } from "react";
-function Add_Loan(){
-    const [Loan,setLoan] =  useState({
+import { toast,ToastContainer } from "react-toastify"
+import { Cross, CrosshairIcon, CrossIcon, IndianRupeeIcon,Plus, SquarePen } from "lucide-react";
+import { useEffect, useState } from "react";
+import Type from "./Type";
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+const Edit_Loan=()=>{
+    const {id} =useParams();
+    const [Loan,setLoan]=useState({
         name:"",
         totalamount:"",
         frequency:"",
@@ -13,40 +15,48 @@ function Add_Loan(){
         installmentamount:"",
         term:""
     })
-const navigate = useNavigate();
+    const navigate =useNavigate();
+
+    const fetchLoan = async()=>{
+        try{
+        console.log("hi")
+        const res = await axios.get(`http://localhost:5000/loan/getloan/${id}`)
+        console.log("edit")
+        // console.log(res.data.loanidDetails);
+        const loanData =res.data.loanidDetails;
+        await setLoan({...loanData,date:loanData.date?loanData.date.split("T")[0]:""});
+        console.log(res.data.loanidDetails);
+        // toast.success("fetch loan details successfully");
+        }catch(err){
+         toast.error("error to fetch loan details");
+        }
+}
+    const handleEdit= async(e)=>{
+        try{
+        e.preventDefault();
+        const res = await axios.put(`http://localhost:5000/loan/editloan/${id}`,Loan)
+        toast.success("successfully updated")
+        setTimeout(() => {
+         navigate("/loandashboard")
+        }, 2000);
+        }catch(err){
+        toast.error("error to update")
+        }
+    }
     const handleChange =(e)=>{
         setLoan({...Loan,[e.target.name]:e.target.value})
     }
-    
-    const handleSubmit =async(e)=>{
-        try{
-        e.preventDefault();
-        console.log(Loan);
-        console.log("hi")
-        const res = await axios.post("http://localhost:5000/loan/addloan",Loan);
-        console.log(Loan);
-        toast.success(res.data.message)
-        setLoan(
-            {
-                name:"",
-                totalamount:"",
-                frequency:"",
-                date:"",
-                installmentamount:"",
-                term:""
-            }
-        )
-        setTimeout(()=>{
-          navigate("/loandashboard")
-        },2000)
-        }catch(err){
-         toast.error("error to add loan")
-        }
-    }
-
-
+    useEffect(()=>{
+        fetchLoan();
+    },[id])
     return(
-     <form action="" onSubmit={handleSubmit}>
+    <div className="max-w-full mx-auto bg-gray-100 p-4">
+         <div className="bg-blue-100 rounded-lg p-4 shadow-md">
+            <h1>Edit Transaction</h1>
+            <h1 className="text-3xl font-bold">Enter Details</h1>
+         </div>
+         <Type/>
+  <form action="" onSubmit={handleEdit}>
      <div className="mt-4">
         <div className="mt-3">
             <h1 className="text-1xl font-bold">Person or Company</h1>
@@ -85,11 +95,15 @@ const navigate = useNavigate();
             </div>
         </div>
         <div className="border-t border-gray-300  mt-6"></div>
-        <button type="submit" className="w-full bg-blue-700 p-4 cursor-pointer rounded-full mt-8 text-white font-bold flex items-center justify-center gap-2"><Plus className="h-5 w-5" strokeWidth={5}/>Add Loan</button>
+        <div className="flex gap-1">
+        <button type="submit" className="w-full bg-blue-700 p-4 cursor-pointer rounded-full mt-8 text-white font-bold flex items-center justify-center gap-2"><SquarePen className="h-5 w-5" strokeWidth={3}/>Edit Loan</button>
+        <button type="submit" className="w-full bg-red-700 p-4 cursor-pointer rounded-full mt-8 text-white font-bold flex items-center justify-center gap-2"onClick={()=>{navigate("/loandashboard")}}>Cancel</button>
+     </div>
      </div>
       <ToastContainer/>
      </form>
-    
+     </div>      
     )
 }
-export default Add_Loan;
+
+export default Edit_Loan;

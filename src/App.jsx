@@ -7,6 +7,7 @@ import Calendar_view from './Calendar/Calendar_view'
 import History_Dashboard from './History/History_Dashboard'
 import { Calendar, History, Home, House, List, Plus, ReceiptIcon, User } from 'lucide-react'
 import { NavLink, Routes,Route } from 'react-router-dom'
+import Edit_Loan from './AddLoan/Edit_Loan'
 
 
 
@@ -24,6 +25,7 @@ function App() {
       <Routes>
       <Route path="/" element={<Dashboard/>}/> 
       <Route path="/addloan" element={<Loan/>}/>
+      <Route path="/editloan/:id" element={<Edit_Loan/>}/>
       <Route path="/loandashboard" element={<Loan_Dashboard/>}/>
       <Route path="/details/:id" element={<Details/>}/>
       <Route path="/calendar" element={<Calendar_view/>}/>
@@ -39,7 +41,7 @@ function App() {
           <Plus className='ml-6'/>
           <h1 className='text-small'>Add Loan</h1>
         </NavLink>
-        <NavLink to="loandashboard"className={({isActive})=>isActive?"bg-blue-600 text-white rounded-3xl p-2":"p-2 cursor-pointer"}>
+        <NavLink to="/loandashboard"className={({isActive})=>isActive?"bg-blue-600 text-white rounded-3xl p-2":"p-2 cursor-pointer"}>
           <List className='ml-2'/>
           <h1 className='text-small'>Loans</h1>
         </NavLink>
