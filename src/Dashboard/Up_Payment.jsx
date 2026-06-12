@@ -26,10 +26,14 @@ function Up_Payment(){
             <h1 className="font-bold">Upcoming Payements</h1>
             <h1 className="font-bold text-blue-700" onClick={seeAll}>{allDetails?"show less":"See All"}</h1>
          </div>
-        {
+        {   payments.length>0?(
             (allDetails?payments:payments.slice(0,4)).map(payment=>(
                 <Payment_card key={payment._id} payment={payment}/>
             ))
+        ):(<div className="bg-white rounded-lg p-8 mt-2 shadow-lg text-center">
+                <h1 className="text-xl">No Upcoming Payments Found</h1>
+            </div>
+            )
         }
         </div>
     )

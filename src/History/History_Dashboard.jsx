@@ -35,12 +35,16 @@ useEffect(()=>{
             <h1 className="font-bold text-2xl">History</h1>
             <h1 className="text-gray-700">Your complete record of Transaction</h1>
          </div>
-        {
+        {   history.length>0?(
             Object.entries(groupedHistory).map(
                 ([month,records])=>(
                     <Monthly_Record key={month} month={month} records={records}/>
                 )
             )
+        ):(<div className="bg-white rounded-lg p-8 mt-2 shadow-lg text-center">
+                <h1 className="text-xl">No Transaction History</h1>
+                </div>
+                )
         }
         </div>
     )

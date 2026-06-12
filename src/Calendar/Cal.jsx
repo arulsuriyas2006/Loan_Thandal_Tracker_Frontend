@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-function Cal(){
- const [selected, setSelected] = useState(new Date());
- const paidDates = [new Date(2023, 9, 3)];
- const pendingDates = [new Date(2023, 9, 6), new Date(2023, 9, 18)];
+import axios from "axios";
+function Cal(props){
+  const {paid,pending,selectedDate, setSelectedDate,month,setMonth}=props;
+ const [calInstallments,setcalInstallments]=useState([]);
+ const paidDates = paid;
+ const pendingDates = pending;
+
     return(
 <div className="mt-4">
       <DayPicker
         mode="single"
-        selected={selected}
-        onSelect={setSelected}
+        selected={selectedDate}
+        onSelect={setSelectedDate}
+        month={month}
+        onMonthChange={setMonth}
         showOutsideDays
         components={{
           IconLeft: () => <ChevronLeft className="w-4 h-4 text-blue-600" />,

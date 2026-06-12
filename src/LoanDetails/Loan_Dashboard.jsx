@@ -48,8 +48,9 @@ function Loan_Dashboard(){
                 LoanDetails.map((loan,ind)=>(
             <NavLink to={`/details/${loan._id}`} key={loan._id}><Loan_Card loan={loan} /></NavLink>
                 ))
-            ):(
-                <h1 className="mt-10 text-xl flex items-center justify-center">Loan Details empty</h1>
+            ):(<div className="bg-white rounded-lg p-8 mt-2 shadow-lg text-center">
+                <h1 className="text-xl">Loan Details empty</h1>
+                </div>
                 )
             }
         <ToastContainer/>
