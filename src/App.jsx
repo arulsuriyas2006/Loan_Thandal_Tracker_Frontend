@@ -8,6 +8,8 @@ import History_Dashboard from './History/History_Dashboard'
 import { Calendar, History, Home, House, List, Plus, ReceiptIcon, User } from 'lucide-react'
 import { NavLink, Routes,Route } from 'react-router-dom'
 import Edit_Loan from './AddLoan/Edit_Loan'
+import Login from './login/Login'
+import Signup from './login/Signup'
 
 
 
@@ -23,7 +25,9 @@ function App() {
       </div>
       <main className='pt-16 pb-18'>
       <Routes>
-      <Route path="/" element={<Dashboard/>}/> 
+      <Route path="/" element={<Login/>}/>
+      <Route path ="/signup" element={<Signup/>}/>
+      <Route path="/dashboard" element={<Dashboard/>}/> 
       <Route path="/addloan" element={<Loan/>}/>
       <Route path="/editloan/:id" element={<Edit_Loan/>}/>
       <Route path="/loandashboard" element={<Loan_Dashboard/>}/>
@@ -33,7 +37,7 @@ function App() {
       </Routes>
       </main>
       <div className='fixed w-full flex justify-between bottom-0 bg-white rounded-t-lg p-1 mb-0 shadow-lg border-t border-gray-200 z-50'>
-      <NavLink to="/"className={({isActive})=>isActive?"bg-blue-600 text-white rounded-3xl p-2":"p-2 cursor-pointer items-center"}>
+      <NavLink to="/dashboard"className={({isActive})=>isActive?"bg-blue-600 text-white rounded-3xl p-2":"p-2 cursor-pointer items-center"}>
           <House className='ml-2'/>
           <h1 className=' text-small'>Home</h1>
         </NavLink>
