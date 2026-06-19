@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import Payment_card from "./payment_Card";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 function Up_Payment(){
+    const navigate=useNavigate()
     const [payments,setpayments] =useState([]);
     const[allDetails,setallDetails]=useState(false)
     const fetchpayments =async()=>{
         try{
-        const res = await axios.get("http://localhost:5000/loan/getupcomingpayments")
+        const res = await axios.get("http://localhost:5000/loan/getupcomingpayments",{withCredentials:true})
         setpayments(res.data.payments)
         console.log(payments)
         }catch(err){
+            if(err.response?.status==401){
+             navigate("/login")       
+            }
             console.log(err);
         }
     }
@@ -24,7 +28,7 @@ function Up_Payment(){
         <div className="mt-4">
          <div className="flex justify-between">
             <h1 className="font-bold">Upcoming Payements</h1>
-            <h1 className="font-bold text-blue-700" onClick={seeAll}>{allDetails?"show less":"See All"}</h1>
+            <h1 className="font-bold text-blue-700 cursor-pointer " onClick={seeAll}>{allDetails?"show less":"See All"}</h1>
          </div>
         {   payments.length>0?(
             (allDetails?payments:payments.slice(0,4)).map(payment=>(

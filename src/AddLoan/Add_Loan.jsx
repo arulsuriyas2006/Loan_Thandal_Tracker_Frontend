@@ -4,11 +4,12 @@ import {toast,ToastContainer}  from 'react-toastify';
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom"
 import { useEffect } from "react";
-function Add_Loan(){
+function Add_Loan(props){
+    const {setLogin}=props;
     const [Loan,setLoan] =  useState({
         name:"",
         totalamount:"",
-        frequency:"",
+        frequency:"d",
         date:"",
         installmentamount:"",
         term:""
@@ -21,9 +22,24 @@ const navigate = useNavigate();
     const handleSubmit =async(e)=>{
         try{
         e.preventDefault();
+        if(Loan.name==""){
+            return toast.error("Plesae fill the name");
+        }
+            if(Loan.totalamount==""){
+           return toast.error("Plesae fill the totalamount");
+        }
+            if(Loan.date==""){
+            return toast.error("Plesae fill the date");
+        }
+            if(Loan.installmentamount==""){
+            return toast.error("Plesae fill the installmentamount");
+        }
+            if(Loan.term==""){
+            return toast.error("Plesae fill the term");
+        }    
         console.log(Loan);
         console.log("hi")
-        const res = await axios.post("http://localhost:5000/loan/addloan",Loan);
+        const res = await axios.post("http://localhost:5000/loan/addloan",Loan,{withCredentials:true});
         console.log(Loan);
         toast.success(res.data.message)
         setLoan(
@@ -40,7 +56,10 @@ const navigate = useNavigate();
           navigate("/loandashboard")
         },2000)
         }catch(err){
-         toast.error("error to add loan")
+            if(err.response?.status==401){
+                navigate("/login")
+            }
+         toast.error(err.response.data.message)
         }
     }
 
@@ -71,7 +90,7 @@ const navigate = useNavigate();
             </div>
             <div className="w-full">
             <h1 className="text-1xl font-bold">Start Date</h1>
-            <input type="date" value={Loan.date} name="date" onChange={handleChange} className=" w-full bg-blue-100 rounded-lg p-4 mt-2 outline-none border-none"/>
+            <input type="date" value={Loan.date} name="date" onChange={handleChange} className=" w-full max-w-full bg-blue-100 rounded-lg p-4 mx-auto mt-2 outline-none border-none"/>
             </div>
         </div>
         <div className="w-full mx-auto flex justify-between gap-3 mt-3">

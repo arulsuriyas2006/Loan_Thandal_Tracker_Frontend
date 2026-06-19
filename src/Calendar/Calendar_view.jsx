@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cal from './Cal';
 import Emi_card from './Emi_card';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function Calendar_view(){
@@ -10,7 +11,7 @@ function Calendar_view(){
      const [calInstallments,setcalInstallments]=useState([]);
      const paidDates = calInstallments.filter(item=>item.paid).map(item=>new Date(item.dueDate));
      const pendingDates = calInstallments.filter(item=>!item.paid).map(item=>new Date(item.dueDate));
-
+     const navigate=useNavigate()
      const monthInstallments = calInstallments.filter(item=>{
        const due = new Date(item.dueDate);
        return(due?.getMonth()==Month?.getMonth() && due?.getFullYear()== Month?.getFullYear())
@@ -24,9 +25,12 @@ function Calendar_view(){
     const sortInstallments = [...displayInstallments].sort((a,b)=>new Date(a.dueDate)-new Date(b.dueDate))
      const fetchCalendar = async()=>{
       try{
-      const res = await axios.get("http://localhost:5000/loan/getCalendarInstallments")
+      const res = await axios.get("http://localhost:5000/loan/getCalendarInstallments",{withCredentials:true})
       setcalInstallments(res.data.calInstallments)
       }catch(err){
+        if(err.response?.status==401){
+            navigate("/login")
+        }
        console.log(err)
       }
      }
@@ -43,7 +47,7 @@ function Calendar_view(){
                 month:"long",
                 year:"numeric"
             })}</h1>
-         <h1 className="text-blue-800 font-bold  flex items-center justify-center" onClick={()=>setSelectedDate(null)}>Show Entire Month</h1>
+         <h1 className="text-blue-800 font-bold  flex items-center justify-center cursor-pointer" onClick={()=>setSelectedDate(null)}>Show Entire Month</h1>
             </div>
         {   sortInstallments.length>0?(
             sortInstallments.map(item=>(

@@ -11,7 +11,7 @@ function Payment_card(props){
             <User className="h-5 w-5 text-green-600" strokeWidth={2}/>
          </div>
          <div className="p-1">
-            <h1 className="font-bold">{payment.loanId.name}</h1>
+            <h1 className="font-bold">{payment.loanId?.name||"loan deleted"}</h1>
             <h1> Due in {diffDays} days .{" "}{
                 dueDate.toLocaleString("en-US",
                     {

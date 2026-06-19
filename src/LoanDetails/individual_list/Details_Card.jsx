@@ -15,7 +15,7 @@ function Details_Card(props){
     }
     const deleteLoan =async(id)=>{
         try{
-        const res =await axios.delete(`http://localhost:5000/loan/deleteloan/${id}`);
+        const res =await axios.delete(`http://localhost:5000/loan/deleteloan/${id}`,{withCredentials:true});
         console.log("deleted")
         toast.success("successfully deleted")
 
@@ -24,6 +24,9 @@ function Details_Card(props){
         },2000)
 
         }catch(err){
+            if(err.response?.status==401){
+             navigate("/login")       
+            }
             console.log(err)
         toast.error(err)
         }

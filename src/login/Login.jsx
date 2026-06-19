@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { NavLink,useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -14,7 +15,13 @@ function Login(){
     const handleSubmit=async(e)=>{
         try{
       e.preventDefault();
-      const res = await axios.post("http://localhost:5000/user/login",Login)
+        if(Login.email==""){
+            return toast.error("Plesae fill the name");
+        }
+            if(Login.password==""){
+           return toast.error("Plesae fill the password");
+        }
+      const res = await axios.post("http://localhost:5000/user/login",Login,{withCredentials:true})
       if(res.status==200){
         toast.success("Login Successfull")
         setLogin({
@@ -22,12 +29,12 @@ function Login(){
             password:""
         })
         setTimeout(()=>{
-       navigate("/dashboard")
+       navigate("/")
         },2000)
 
       }
         }catch(err){
-         toast.error("login failed")
+         toast.error(err.response.data.message)
          console.log(err)
         }
 
@@ -35,6 +42,7 @@ function Login(){
     const handleChange=(e)=>{
         setLogin({...Login,[e.target.name]:e.target.value})
     }
+
     return(
      <form action="" onSubmit={handleSubmit}>
     <div className="p-6">

@@ -2,8 +2,9 @@ import { BookCheck, IndianRupee } from "lucide-react";
 import { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-
+import { useNavigate } from "react-router-dom";
 function Month(props){
+    const navigate = useNavigate()
     const {ln} =props;
     const [showModal,setshowModal]=useState(false)
     console.log(ln)
@@ -12,13 +13,17 @@ function Month(props){
 
     const markPaid =async()=>{
         try{
-            const res = await axios.put(`http://localhost:5000/loan/markpaid/${ln._id}`);
+            const res = await axios.put(`http://localhost:5000/loan/markpaid/${ln._id}`,{},{withCredentials:true});
             setshowModal(false);
             toast.success("successfully updated")
             setTimeout(()=>{
                 window.location.reload();
             },2000)
         }catch(err){
+            if(err.response?.status==401){
+                navigate("/login")
+            }
+            
           toast.error("error in mark as paid")
         }
     }

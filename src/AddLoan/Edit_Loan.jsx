@@ -20,7 +20,7 @@ const Edit_Loan=()=>{
     const fetchLoan = async()=>{
         try{
         console.log("hi")
-        const res = await axios.get(`http://localhost:5000/loan/getloan/${id}`)
+        const res = await axios.get(`http://localhost:5000/loan/getloan/${id}`,{withCredentials:true})
         console.log("edit")
         // console.log(res.data.loanidDetails);
         const loanData =res.data.loanidDetails;
@@ -28,18 +28,24 @@ const Edit_Loan=()=>{
         console.log(res.data.loanidDetails);
         // toast.success("fetch loan details successfully");
         }catch(err){
+            if(err.response?.status==401){
+             navigate("/")       
+            }
          toast.error("error to fetch loan details");
         }
 }
     const handleEdit= async(e)=>{
         try{
         e.preventDefault();
-        const res = await axios.put(`http://localhost:5000/loan/editloan/${id}`,Loan)
+        const res = await axios.put(`http://localhost:5000/loan/editloan/${id}`,Loan,{withCredentials:true})
         toast.success("successfully updated")
         setTimeout(() => {
          navigate("/loandashboard")
         }, 2000);
         }catch(err){
+            if(err.response?.status==401){
+             navigate("/login")       
+            }
         toast.error("error to update")
         }
     }

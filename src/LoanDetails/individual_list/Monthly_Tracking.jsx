@@ -4,19 +4,23 @@ import { useState } from "react";
 import { useEffect } from "react";
 import {toast} from "react-toastify"
 import axios from "axios"
-
+import { useNavigate } from "react-router-dom";
 function Monthly_Tracking(props){
   const {loan,id} = props;
+  const navigate = useNavigate()
   const [filter,setFilter]=useState("all")
   console.log(id)
       const [InstallmentDetails,setInstallmentDetails]=useState([])
       const getInstallments = async()=>{
           try{
             console.log("installments")
-           const res = await axios.get(`http://localhost:5000/loan/getinstallments/${loan._id}`);
+           const res = await axios.get(`http://localhost:5000/loan/getinstallments/${loan._id}`,{withCredentials:true});
            console.log("after get details")
            setInstallmentDetails(res.data.installments)
           }catch(err){
+            if(err.response?.status==401){
+             navigate("/login")       
+            }
             console.log(err)
            toast.error("error in fetch loanDetails")
           }

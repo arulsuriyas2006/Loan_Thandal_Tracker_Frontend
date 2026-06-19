@@ -4,17 +4,23 @@ import axios from "axios";
 import { useState } from "react";
 import {toast,ToastContainer} from "react-toastify"
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Plus } from "lucide-react";
 function Loan_Dashboard(){
+    const navigate = useNavigate()
     const [LoanDetails,setLoanDetails] =useState([])
     const TotalLoan = LoanDetails.length;
     const completedLoans = LoanDetails.filter(loan=>loan.paidCount == loan.term).length
     const fetchLoanDetails = async()=>{
         try{
-        const res = await axios.get("http://localhost:5000/loan/getloan")
+        const res = await axios.get("http://localhost:5000/loan/getloan",{withCredentials:true})
         await setLoanDetails(res.data.allLoanDetails);
         console.log(res.data.allLoanDetails);
         toast.success("fetch loan details successfully");
         }catch(err){
+            if(err.response?.status==401){
+                navigate("/login")
+            }
          toast.error("error to fetch loan details");
         }
     }
@@ -40,8 +46,11 @@ function Loan_Dashboard(){
         <h1 className="text-lg font-bold text-green-600 flex items-center justify-center">{completedLoans}</h1>
     </div>
   </div>
-  {/* </div> */}
-                <h1 className="text-2xl font-bold mt-2"> ALL Loans</h1>
+  <div className="flex justify-between items-center mt-3">
+   <h1 className="text-2xl font-bold"> ALL Loans</h1>
+   <button onClick={()=>navigate("/addloan")} className="bg-blue-800 text-white p-2 rounded-lg flex gap-1"><Plus/>Add Loan</button>
+  </div>
+                
             </div>
             {
              LoanDetails.length>0?(

@@ -1,17 +1,21 @@
 import axios from "axios";
 import Monthly_Record from "./Monthly_Record";
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 function History_Dashboard(){
+    const navigate =useNavigate()
     const [history,setHistory] =useState([])
 
 const fetchHistory=async()=>{
     try{
         console.log("fetchhistory")
-       const res =await axios.get("http://localhost:5000/loan/history");
+       const res =await axios.get("http://localhost:5000/loan/history",{withCredentials:true});
        console.log("afterfetch")
        setHistory(res.data.history)
     }catch(err){
+     if(err.response?.status==401){
+      navigate("/login")
+     }
       console.log(err);
     }
 }

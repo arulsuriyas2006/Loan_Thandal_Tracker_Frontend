@@ -3,15 +3,19 @@ import Loan_Type from './Loan_Type'
 import Up_Payment from './Up_Payment'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 function Dashboard(){
+  const navigate =useNavigate();
   const [LoanDetails,setLoanDeatils]=useState([]);
   const fetchDetails = async()=>{
     try{
-     const res = await axios.get("http://localhost:5000/loan/getloan")
+     const res = await axios.get("http://localhost:5000/loan/getloan",{withCredentials:true})
      setLoanDeatils(res.data.allLoanDetails)
     }catch(err){
-
+      if(err.response?.status==401){
+    navigate("/login")
+     }
+     console.log(err)
     }
   }
 

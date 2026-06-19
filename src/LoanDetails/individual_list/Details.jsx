@@ -6,16 +6,22 @@ import { useParams } from "react-router-dom";
 import axios from "axios"
 import { toast,ToastContainer } from "react-toastify";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { SquarePen, Trash2 } from "lucide-react";
 function Details(){
+    const navigate =useNavigate()
     const {id} = useParams();
     const [LoanDetails,setLoanDetails]=useState([])
     const getLoan = async()=>{
         try{
-         const res = await axios.get(`http://localhost:5000/loan/getloan/${id}`);
+         const res = await axios.get(`http://localhost:5000/loan/getloan/${id}`,{withCredentials:true});
          setLoanDetails(res.data.loanidDetails)
         }catch(err){
+             if(err.response?.status==401){
+             navigate("/login")       
+            }
          toast.error("error in fetch loanDetails")
+
         }
     }
 

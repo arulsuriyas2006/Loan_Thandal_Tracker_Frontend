@@ -14,6 +14,15 @@ function Signup(){
     const handleSubmit=async(e)=>{
         try{
         e.preventDefault();
+                if(Signup.name==""){
+            return toast.error("Plesae fill the name");
+        }
+            if(Signup.email==""){
+           return toast.error("Plesae fill the email");
+        }
+            if(Signup.password==""){
+            return toast.error("Plesae fill the password");
+        }
         console.log(Signup)
         const res = await axios.post("http://localhost:5000/user/adduser",Signup)
         setSignup({
@@ -21,18 +30,21 @@ function Signup(){
             email:"",
             password:""
         })
-        
+
         console.log(Signup)
         toast.success("User added Successfully")
         setTimeout(()=>{
-        navigate("/")
+        navigate("/login")
         },2000)
         }catch(err){
-         toast.error("error in signup")
-         console.log(err)
+        if(err.response){
+         toast.error(err.response.data.message)
+        }else{
+             console.log(err)
         }
 
     }
+}
     const handleChange=(e)=>{
         setSignup({...Signup,[e.target.name]:e.target.value})
 
@@ -70,7 +82,7 @@ function Signup(){
      </div>
      <div className="flex gap-2 items-center justify-center mt-3">
         <p className="">Already have an account?</p>
-        <NavLink to="/"><h1 className="text-blue-800 ">Login</h1></NavLink>
+        <NavLink to="/login"><h1 className="text-blue-800 ">Login</h1></NavLink>
      </div>
      
      </div>
@@ -78,4 +90,4 @@ function Signup(){
      </form>
     )
 }
-export default Signup
+export default Signup;
