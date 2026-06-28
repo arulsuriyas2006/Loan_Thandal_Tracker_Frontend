@@ -7,6 +7,18 @@ function Record({record}){
         <div className=" bg-green-200 rounded-full p-4 "><HandCoins className="h-5 w-5 text-green-700"/></div>
         <div className="">
             <h1 className="font-bold">{record.loanId.name}</h1>
+            <h1 className="text-gray-600 text-sm">
+  EMI for {
+    new Date(record.dueDate).toLocaleString(
+      "en-GB",
+      {
+        day:"2-digit",
+        month:"short",
+        year:"numeric"
+      }
+    )
+  }
+</h1>
             <h1 className="text-gary-600 text-sm"> Paid on {
               new Date(record.paidDate).toLocaleString("en-GB",{
               day:"2-digit",

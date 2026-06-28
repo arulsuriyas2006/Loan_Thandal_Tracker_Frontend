@@ -272,6 +272,7 @@ const Edit_Loan=()=>{
                         items-center
                         justify-center
                         gap-2
+                        cursor-pointer
                         shadow-md"
                     >
                         <SquarePen
