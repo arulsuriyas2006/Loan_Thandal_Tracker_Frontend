@@ -17,7 +17,7 @@ function Month(props){
             setshowModal(false);
             toast.success("successfully updated")
             setTimeout(()=>{
-                window.location.reload();
+                navigate(`/details/${ln.loanId}`)
             },2000)
         }catch(err){
             if(err.response?.status==401){
