@@ -14,7 +14,7 @@ function Details(){
     const [LoanDetails,setLoanDetails]=useState([])
     const getLoan = async()=>{
         try{
-         const res = await axios.get(`http://localhost:5000/loan/getloan/${id}`,{withCredentials:true});
+         const res = await axios.get(`https://loan-thandal-tracker-backend.onrender.com/loan/getloan/${id}`,{withCredentials:true});
          setLoanDetails(res.data.loanidDetails)
         }catch(err){
              if(err.response?.status==401){

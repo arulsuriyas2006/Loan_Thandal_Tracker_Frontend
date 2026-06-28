@@ -14,7 +14,7 @@ function Profile(){
 
     const fetch =async()=>{
         try{
-        const res = await axios.get("http://localhost:5000/user/getuser",{withCredentials:true})
+        const res = await axios.get("https://loan-thandal-tracker-backend.onrender.com/user/getuser",{withCredentials:true})
         setUser(res.data.iamuser)
         console.log(user)
         }catch(err){
@@ -29,7 +29,7 @@ function Profile(){
     }
     const LogoutAccount=async()=>{
         try{
-        const logout = await axios.post("http://localhost:5000/user/logout",{},{withCredentials:true})
+        const logout = await axios.post("https://loan-thandal-tracker-backend.onrender.com/user/logout",{},{withCredentials:true})
         toast.success("Account Logout successfully")
         setTimeout(()=>{
          navigate("/login")
@@ -45,7 +45,7 @@ function Profile(){
     }
     const deleteAccount=async()=>{
     try{
-    const res = await axios.delete("http://localhost:5000/user/deleteaccount",{withCredentials:true});
+    const res = await axios.delete("https://loan-thandal-tracker-backend.onrender.com/user/deleteaccount",{withCredentials:true});
     toast.success("Successfully Account deleted ")
     setTimeout(()=>{
         navigate("/login")
@@ -59,7 +59,7 @@ function Profile(){
     }
  const toggleNotification =async()=>{
     try{
-        const res =await axios.put("http://localhost:5000/user/notification",{},{withCredentials:true})
+        const res =await axios.put("https://loan-thandal-tracker-backend.onrender.com/user/notification",{},{withCredentials:true})
         setUser({...user,notifications:res.data.notifications})
     }catch(err){
         if(err.response?.status==401){

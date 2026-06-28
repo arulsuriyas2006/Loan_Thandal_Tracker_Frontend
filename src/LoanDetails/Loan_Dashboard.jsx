@@ -13,7 +13,7 @@ function Loan_Dashboard(){
     const completedLoans = LoanDetails.filter(loan=>loan.paidCount == loan.term).length
     const fetchLoanDetails = async()=>{
         try{
-        const res = await axios.get("http://localhost:5000/loan/getloan",{withCredentials:true})
+        const res = await axios.get("https://loan-thandal-tracker-backend.onrender.com/loan/getloan",{withCredentials:true})
         await setLoanDetails(res.data.allLoanDetails);
         console.log(res.data.allLoanDetails);
         toast.success("fetch loan details successfully");

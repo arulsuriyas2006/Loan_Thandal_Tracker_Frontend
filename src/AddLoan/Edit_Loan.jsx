@@ -20,7 +20,7 @@ const Edit_Loan=()=>{
     const fetchLoan = async()=>{
         try{
         console.log("hi")
-        const res = await axios.get(`http://localhost:5000/loan/getloan/${id}`,{withCredentials:true})
+        const res = await axios.get(`https://loan-thandal-tracker-backend.onrender.com/loan/getloan/${id}`,{withCredentials:true})
         console.log("edit")
         // console.log(res.data.loanidDetails);
         const loanData =res.data.loanidDetails;
@@ -37,7 +37,7 @@ const Edit_Loan=()=>{
     const handleEdit= async(e)=>{
         try{
         e.preventDefault();
-        const res = await axios.put(`http://localhost:5000/loan/editloan/${id}`,Loan,{withCredentials:true})
+        const res = await axios.put(`https://loan-thandal-tracker-backend.onrender.com/loan/editloan/${id}`,Loan,{withCredentials:true})
         toast.success("successfully updated")
         setTimeout(() => {
          navigate(`/details/${id}`)

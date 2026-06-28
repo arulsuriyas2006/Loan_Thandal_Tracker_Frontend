@@ -24,7 +24,7 @@ function Signup(){
             return toast.error("Plesae fill the password");
         }
         console.log(Signup)
-        const res = await axios.post("http://localhost:5000/user/adduser",Signup)
+        const res = await axios.post("https://loan-thandal-tracker-backend.onrender.com/user/adduser",Signup)
         setSignup({
             name:"",
             email:"",

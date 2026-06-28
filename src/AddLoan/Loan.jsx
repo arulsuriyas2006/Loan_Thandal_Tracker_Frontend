@@ -8,7 +8,7 @@ function Loan(){
     const navigate = useNavigate();
     const checkAuth =async()=>{
         try{
-            const res = await axios.get("http://localhost:5000/user/checkauth",{withCredentials:true})
+            const res = await axios.get("https://loan-thandal-tracker-backend.onrender.com/user/checkauth",{withCredentials:true})
             console.log(res.data)
         }catch(err){
             if(err.response?.status==401){

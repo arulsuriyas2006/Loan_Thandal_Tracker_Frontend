@@ -25,7 +25,7 @@ function Calendar_view(){
     const sortInstallments = [...displayInstallments].sort((a,b)=>new Date(a.dueDate)-new Date(b.dueDate))
      const fetchCalendar = async()=>{
       try{
-      const res = await axios.get("http://localhost:5000/loan/getCalendarInstallments",{withCredentials:true})
+      const res = await axios.get("https://loan-thandal-tracker-backend.onrender.com/loan/getCalendarInstallments",{withCredentials:true})
       setcalInstallments(res.data.calInstallments)
       }catch(err){
         if(err.response?.status==401){

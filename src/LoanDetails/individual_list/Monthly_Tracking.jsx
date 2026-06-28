@@ -14,7 +14,7 @@ function Monthly_Tracking(props){
       const getInstallments = async()=>{
           try{
             console.log("installments")
-           const res = await axios.get(`http://localhost:5000/loan/getinstallments/${loan._id}`,{withCredentials:true});
+           const res = await axios.get(`https://loan-thandal-tracker-backend.onrender.com/loan/getinstallments/${loan._id}`,{withCredentials:true});
            console.log("after get details")
            setInstallmentDetails(res.data.installments)
           }catch(err){

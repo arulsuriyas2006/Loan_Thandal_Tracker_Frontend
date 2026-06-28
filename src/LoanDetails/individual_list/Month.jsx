@@ -13,7 +13,7 @@ function Month(props){
 
     const markPaid =async()=>{
         try{
-            const res = await axios.put(`http://localhost:5000/loan/markpaid/${ln._id}`,{},{withCredentials:true});
+            const res = await axios.put(`https://loan-thandal-tracker-backend.onrender.com/loan/markpaid/${ln._id}`,{},{withCredentials:true});
             setshowModal(false);
             toast.success("successfully updated")
             setTimeout(()=>{

@@ -9,7 +9,7 @@ function Dashboard(){
   const [LoanDetails,setLoanDeatils]=useState([]);
   const fetchDetails = async()=>{
     try{
-     const res = await axios.get("http://localhost:5000/loan/getloan",{withCredentials:true})
+     const res = await axios.get("https://loan-thandal-tracker-backend.onrender.com/loan/getloan",{withCredentials:true})
      setLoanDeatils(res.data.allLoanDetails)
     }catch(err){
       if(err.response?.status==401){

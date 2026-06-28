@@ -8,7 +8,7 @@ function Up_Payment(){
     const[allDetails,setallDetails]=useState(false)
     const fetchpayments =async()=>{
         try{
-        const res = await axios.get("http://localhost:5000/loan/getupcomingpayments",{withCredentials:true})
+        const res = await axios.get("https://loan-thandal-tracker-backend.onrender.com/loan/getupcomingpayments",{withCredentials:true})
         setpayments(res.data.payments)
         console.log(payments)
         }catch(err){

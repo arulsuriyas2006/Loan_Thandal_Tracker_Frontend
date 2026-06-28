@@ -15,7 +15,7 @@ function Details_Card(props){
     }
     const deleteLoan =async(id)=>{
         try{
-        const res =await axios.delete(`http://localhost:5000/loan/deleteloan/${id}`,{withCredentials:true});
+        const res =await axios.delete(`https://loan-thandal-tracker-backend.onrender.com/loan/deleteloan/${id}`,{withCredentials:true});
         console.log("deleted")
         toast.success("successfully deleted")
 

@@ -9,7 +9,7 @@ function History_Dashboard(){
 const fetchHistory=async()=>{
     try{
         console.log("fetchhistory")
-       const res =await axios.get("http://localhost:5000/loan/history",{withCredentials:true});
+       const res =await axios.get("https://loan-thandal-tracker-backend.onrender.com/loan/history",{withCredentials:true});
        console.log("afterfetch")
        setHistory(res.data.history)
     }catch(err){

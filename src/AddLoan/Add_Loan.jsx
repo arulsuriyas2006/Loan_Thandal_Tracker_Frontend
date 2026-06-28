@@ -39,7 +39,7 @@ const navigate = useNavigate();
         }    
         console.log(Loan);
         console.log("hi")
-        const res = await axios.post("http://localhost:5000/loan/addloan",Loan,{withCredentials:true});
+        const res = await axios.post("https://loan-thandal-tracker-backend.onrender.com/loan/addloan",Loan,{withCredentials:true});
         console.log(Loan);
         toast.success(res.data.message)
         setLoan(
