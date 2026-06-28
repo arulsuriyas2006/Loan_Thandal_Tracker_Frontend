@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Payment_card from "./payment_Card";
+import Payment_card from "./Payment_Card";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 function Up_Payment(){
