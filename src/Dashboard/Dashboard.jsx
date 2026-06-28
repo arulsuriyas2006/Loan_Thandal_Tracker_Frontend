@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 function Dashboard(){
   const navigate =useNavigate();
+  const [loading,setLoading] = useState(true);
   const [LoanDetails,setLoanDeatils]=useState([]);
   const fetchDetails = async()=>{
     try{
@@ -16,6 +17,8 @@ function Dashboard(){
     navigate("/login")
      }
      console.log(err)
+    }finally{
+      setLoading(false);
     }
   }
 
@@ -23,6 +26,14 @@ function Dashboard(){
   useEffect(()=>{
     fetchDetails()
   },[])
+      if(loading){
+        return(
+        <div className="flex flex-col justify-center items-center h-screen gap-3">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600">Loading Dashboard...</p>
+        </div>
+        )
+    }
 return(
 <div className="bg-gray-100 min-h-screen p-4 lg:px-8 lg:mb-0 mt-10 mb-7 lg:mt-0">
 

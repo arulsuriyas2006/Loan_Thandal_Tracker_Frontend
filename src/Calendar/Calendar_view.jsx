@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function Calendar_view(){
+     const [loading,setLoading] = useState(true);
      const [selectedDate, setSelectedDate] = useState(new Date());
      const [currentMonth,setCurrentMonth] = useState(new Date());
      const [Month,setMonth] = useState(new Date());
@@ -32,12 +33,23 @@ function Calendar_view(){
             navigate("/login")
         }
        console.log(err)
-      }
-     }
+      }finally{
+      setLoading(false);
+    }
+  }
+     
      useEffect(()=>{
       fetchCalendar()
      },[])
      console.log(calInstallments)
+if(loading){
+        return(
+        <div className="flex flex-col justify-center items-center h-screen gap-3">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600">Loading Calender View...</p>
+        </div>
+        )
+}
     return(
         <div className=" px-6 py-4 min-h-screen mt-12 mb-8 lg:mt-0 lg:mb-0 ">
                 <h1 className=" text-3xl font-bold mb-4">

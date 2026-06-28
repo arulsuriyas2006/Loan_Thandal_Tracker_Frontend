@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Month(props){
     const navigate = useNavigate()
     const {ln} =props;
+    
     const [showModal,setshowModal]=useState(false)
     console.log(ln)
     const date = ln.dueDate;

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Profile(){
+     const [loading,setLoading] = useState(true);
       const [showModal,setshowModal] = useState(false);
       const [showdelete,setShowdelete]=useState(false)
       const [user,setUser]=useState([])
@@ -21,7 +22,9 @@ function Profile(){
      if(err.response?.status==401){
         navigate("/login")
        }
-        }
+        }finally{
+      setLoading(false);
+    }
 
     }
     const AskLogout=()=>{
@@ -72,6 +75,14 @@ function Profile(){
     useEffect(()=>{
         fetch();
     },[])
+    if(loading){
+        return(
+        <div className="flex flex-col justify-center items-center h-screen gap-3">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600">Loading your Profile...</p>
+        </div>
+        )
+    }
   return (
   <div className="p-4 lg:px-8 lg:py-4 mt-12 mb-8 lg:mt-0">
     

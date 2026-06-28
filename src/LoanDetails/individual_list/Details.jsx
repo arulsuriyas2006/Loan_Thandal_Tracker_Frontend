@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Backpack, SquarePen, Trash2 } from "lucide-react";
 function Details(){
     const navigate =useNavigate()
+    const [loading,setLoading] = useState(true);
     const {id} = useParams();
     const [LoanDetails,setLoanDetails]=useState([])
     const getLoan = async()=>{
@@ -22,13 +23,23 @@ function Details(){
             }
          toast.error("error in fetch loanDetails")
 
-        }
+        }finally{
+      setLoading(false);
+    }
     }
 
     console.log(LoanDetails);
     useEffect(()=>{
         getLoan();
     },[])
+  if(loading){
+        return(
+        <div className="flex flex-col justify-center items-center h-screen gap-3">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600">Loading your loan...</p>
+        </div>
+        )
+    }
 return (
     <div className="bg-gray-100 min-h-screen p-4 md:p-8 mt-10 mb-5 lg:mt-0 lg:mb-0">
        <button onClick={()=>navigate("/loandashboard")}className="text-blue-800  gap-1 mt-2 mb-2 cursor-pointer lg:text-lg lg:mb-4 font-bold flex items-center"> <ArrowLeft/>Back to Loans</button>

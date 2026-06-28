@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 function Loan_Dashboard(){
     const navigate = useNavigate()
+    const [loading,setLoading] = useState(true);
     const [LoanDetails,setLoanDetails] =useState([])
     const TotalLoan = LoanDetails.length;
     const completedLoans = LoanDetails.filter(loan=>loan.paidCount == loan.term).length
@@ -22,11 +23,21 @@ function Loan_Dashboard(){
                 navigate("/login")
             }
          toast.error("error to fetch loan details");
-        }
+        }finally{
+      setLoading(false);
+    }
     }
     useEffect(()=>{
      fetchLoanDetails();
     },[])
+    if(loading){
+        return(
+        <div className="flex flex-col justify-center items-center h-screen gap-3">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600">Loading your loans...</p>
+        </div>
+        )
+    }
     return(
     <div className="bg-gray-100 pt-1 p-4 mt-14 lg:mt-2">
     <div className="">
@@ -78,7 +89,7 @@ function Loan_Dashboard(){
       ))}
     </div>
   ) : (
-    <div className="bg-white rounded-xl p-10 mt-4 shadow text-center">
+    <div className="bg-white rounded-xl p-10 mt-4 shadow text-center mb-8 lg:mb-0">
       <h1 className="text-xl font-semibold">
         No Loan Details Found
       </h1>

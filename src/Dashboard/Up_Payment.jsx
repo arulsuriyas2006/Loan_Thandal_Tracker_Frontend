@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 function Up_Payment(){
     const navigate=useNavigate()
+    const [loading,setLoading] = useState(true);
     const [payments,setpayments] =useState([]);
     const[allDetails,setallDetails]=useState(false)
     const fetchpayments =async()=>{
@@ -16,7 +17,9 @@ function Up_Payment(){
              navigate("/login")       
             }
             console.log(err);
-        }
+        }finally{
+      setLoading(false);
+    }
     }
     const seeAll =()=>{
        setallDetails(!allDetails)
@@ -24,6 +27,15 @@ function Up_Payment(){
     useEffect(()=>{
         fetchpayments()
     },[])
+
+      if(loading){
+        return(
+        <div className="flex flex-col justify-center items-center h-screen gap-3">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600">Loading Upcoming Payments...</p>
+        </div>
+        )
+    }
     return(
 <div className="bg-white rounded-3xl shadow-md p-6">
 

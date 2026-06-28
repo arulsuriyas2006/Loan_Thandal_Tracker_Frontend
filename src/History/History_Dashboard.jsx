@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 function History_Dashboard(){
     const navigate =useNavigate()
+    const [loading,setLoading] = useState(true);
     const [history,setHistory] =useState([])
 
 const fetchHistory=async()=>{
@@ -17,6 +18,8 @@ const fetchHistory=async()=>{
       navigate("/login")
      }
       console.log(err);
+    }finally{
+      setLoading(false);
     }
 }
 
@@ -33,8 +36,16 @@ const groupedHistory = history.reduce((acc,item)=>{
 useEffect(()=>{
     fetchHistory();
 },[])
+if(loading){
+        return(
+        <div className="flex flex-col justify-center items-center h-screen gap-3">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600">Loading your History...</p>
+        </div>
+        )
+    }
     return(
-        <div className="bg-gray-100 min-h-screen p-4 lg:p-1 mt-6 lg:mt-0">
+        <div className="bg-gray-100 min-h-screen p-4 lg:p-1 mt-6  mb-8 lg:mt-0 lg:mb-0">
             <div className="max-w-5xl mx-auto">
          <div className="mt-4 mb-6">
             <h1 className="font-bold text-3xl lg:text-3xl">History</h1>

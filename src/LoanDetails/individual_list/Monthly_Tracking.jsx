@@ -7,6 +7,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom";
 function Monthly_Tracking(props){
   const {loan,id} = props;
+  const [loading,setLoading] = useState(true);
   const navigate = useNavigate()
   const [filter,setFilter]=useState("all")
   console.log(id)
@@ -23,7 +24,9 @@ function Monthly_Tracking(props){
             }
             console.log(err)
            toast.error("error in fetch loanDetails")
-          }
+          }finally{
+      setLoading(false);
+    }
       }
       console.log(InstallmentDetails);
       useEffect(()=>{
@@ -42,6 +45,15 @@ function Monthly_Tracking(props){
     }
     return true;
    })
+
+  if(loading){
+        return(
+        <div className="flex flex-col justify-center items-center h-screen gap-3">
+            <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600">Loading Installments...</p>
+        </div>
+        )
+    }
     return(
         <div className="mt-6 bg-white rounded-2xl shadow-lg p-5">
 <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-5">
