@@ -28,40 +28,63 @@ function Loan_Dashboard(){
      fetchLoanDetails();
     },[])
     return(
-    <div className="bg-gray-100 pt-1 p-4">
+    <div className="bg-gray-100 pt-1 p-4 mt-14 lg:mt-2">
     <div className="">
-        <h1 className="text-blue-800 font-bold">Overwiew</h1>
+        <h1 className=" text-3xl lg:text-3xl font-bold">Overwiew</h1>
     {/* <div className="flex justify-between mt-6"> */}
-    <div className="flex gap-3 justify-center items-center mt-3">
-    <div className="bg-white p-2 rounded-lg">
-      <h1 className="font-bold text-gray text-sm">Total Loans</h1>
-      <h1 className="text-lg font-bold text-orange-400 flex items-center justify-center">{TotalLoan}</h1>
-    </div>
-    <div className="font-bold bg-white p-2 rounded-lg">
-        <h1 className="text-gray text-sm">Active loans</h1>
-        <h1 className="text-lg font-bold text-blue-800 flex items-center justify-center">{TotalLoan-completedLoans}</h1>
-    </div>
-    <div className="bg-white p-2 rounded-lg">
-        <h1 className="font-bold text-gray text-sm">Closed Loans</h1>
-        <h1 className="text-lg font-bold text-green-600 flex items-center justify-center">{completedLoans}</h1>
-    </div>
+<div className="grid grid-cols-2 gap-4 mt-5">
+
+  <div className="bg-white rounded-3xl p-5 shadow-md border">
+    <p className="text-gray-500 text-sm">Total Loans</p>
+    <h1 className="text-4xl font-bold text-orange-500 mt-2">
+      {TotalLoan}
+    </h1>
   </div>
+
+  <div className="bg-white rounded-3xl p-5 shadow-md border">
+    <p className="text-gray-500 text-sm">Active Loans</p>
+    <h1 className="text-4xl font-bold text-blue-600 mt-2">
+      {TotalLoan - completedLoans}
+    </h1>
+  </div>
+
+  <div className="col-span-2 bg-gradient-to-r from-green-500 to-green-600 rounded-3xl p-5 shadow-lg text-white">
+    <p className="text-sm">Closed Loans</p>
+    <h1 className="text-5xl font-bold mt-2">
+      {completedLoans}
+    </h1>
+    <p className="text-xs mt-2">
+      Successfully Completed Loans
+    </p>
+  </div>
+
+</div>
   <div className="flex justify-between items-center mt-3">
    <h1 className="text-2xl font-bold"> ALL Loans</h1>
-   <button onClick={()=>navigate("/addloan")} className="bg-blue-800 text-white p-2 rounded-lg flex gap-1"><Plus/>Add Loan</button>
+   <button onClick={()=>navigate("/addloan")} className="bg-blue-800 text-white p-2 rounded-lg flex gap-1 cursor-pointer"><Plus/>Add Loan</button>
   </div>
                 
             </div>
-            {
-             LoanDetails.length>0?(
-                LoanDetails.map((loan,ind)=>(
-            <NavLink to={`/details/${loan._id}`} key={loan._id}><Loan_Card loan={loan} /></NavLink>
-                ))
-            ):(<div className="bg-white rounded-lg p-8 mt-2 shadow-lg text-center">
-                <h1 className="text-xl">Loan Details empty</h1>
-                </div>
-                )
-            }
+{
+  LoanDetails.length > 0 ? (
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-4 mb-8">
+      {LoanDetails.map((loan) => (
+        <NavLink
+          to={`/details/${loan._id}`}
+          key={loan._id}
+        >
+          <Loan_Card loan={loan}/>
+        </NavLink>
+      ))}
+    </div>
+  ) : (
+    <div className="bg-white rounded-xl p-10 mt-4 shadow text-center">
+      <h1 className="text-xl font-semibold">
+        No Loan Details Found
+      </h1>
+    </div>
+  )
+}
         <ToastContainer/>
         </div>
     )

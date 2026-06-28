@@ -20,11 +20,28 @@ function App() {
   return (
     
     <div className='bg-gray-100'>
-      <div className='fixed top-0 w-full bg-white/10 backdrop-blur-md flex justify-between p-3 items-center rounded-b-lg border-b border-gray-200 z-50'>
+      <div className='fixed top-0 w-full bg-white/10 backdrop-blur-md flex justify-between p-3 items-center rounded-b-lg border-b border-gray-200 z-50 lg:hidden'>
         <div className='bg-green-100 p-2 rounded-full'><User/></div>
         <div className=''><h1 className='text-blue-600 font-bold'>FinFamily</h1></div>
       </div>
-      <main className='pt-16 pb-18'>
+
+    <div className='hidden lg:flex fixed left-0 top-0 h-screen w-64 bg-white shadow-lg flex-col'>
+      <div className='p-6 border-b'>
+        <h1 className='text-2xl font-bold text-blue-600'>Fin Family</h1>
+      </div>
+
+      <div className='flex-1 p-4'>
+        <NavLink to="/" className={({isActive})=>`flex items-center gap-3 p-3 rounded-lg mb-2 ${isActive?"bg-blue-600 text-white":"hover:bg-gray-100"}`}><Home size={20}/>Home</NavLink>
+        <NavLink to="/loandashboard" className={({isActive})=>`flex items-center gap-3 p-3 rounded-lg mb-2 ${isActive?"bg-blue-600 text-white":"hover:bg-gray-100"}`}><List size={20}/>Loans</NavLink>
+        <NavLink to="/calendar" className={({isActive})=>`flex items-center gap-3 p-3 rounded-lg mb-2 ${isActive?"bg-blue-600 text-white":"hover:bg-gray-100"}`}><Calendar size={20}/>Calendar</NavLink>
+        <NavLink to="/history" className={({isActive})=>`flex items-center gap-3 p-3 rounded-lg mb-2 ${isActive?"bg-blue-600 text-white":"hover:bg-gray-100"}`}><History size={20}/>History</NavLink>
+        <NavLink to="/profile" className={({isActive})=>`flex items-center gap-3 p-3 rounded-lg mb-2 ${isActive?"bg-blue-600 text-white":"hover:bg-gray-100"}`}><User size={20}/>Profile</NavLink>
+      </div>
+
+    </div>
+
+
+      <main className='pt-4 pb-10 lg:ml-64 min-h-screen bg-gray-100'>
       <Routes>
       <Route path="/login" element={<Login/>}/>
       <Route path ="/signup" element={<Signup/>}/>
@@ -38,7 +55,7 @@ function App() {
       <Route path="/profile" element={<Profile/>}/>
       </Routes>
       </main>
-      <div className='fixed w-full flex justify-between bottom-0 bg-white rounded-t-lg p-1 mb-0 shadow-lg border-t border-gray-200 z-50'>
+      <div className='fixed w-full flex justify-between bottom-0 bg-white rounded-t-lg p-1 shadow-lg border-t border-gray-200 z-50 lg:hidden'>
       <NavLink to="/"className={({isActive})=>isActive?"bg-blue-600 text-white rounded-3xl p-2":"p-2 cursor-pointer items-center"}>
           <House className='ml-2'/>
           <h1 className=' text-small'>Home</h1>

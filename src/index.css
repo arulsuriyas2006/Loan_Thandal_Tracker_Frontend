@@ -1,5 +1,6 @@
 @import "tailwindcss";
 .custom-daypicker {
+  width:100%;
   --rdp-cell-size: 38px;
   font-family: sans-serif;
   background-color: #f5f5f7;
@@ -10,6 +11,9 @@
 
 .rdp {
   margin: 0;
+}
+.rdp-month{
+  width:100%;
 }
 
 .rdp-caption {

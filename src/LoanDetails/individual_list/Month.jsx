@@ -28,30 +28,30 @@ function Month(props){
         }
     }
     return(
-        <div className={`mt-3 max-w-full mx-auto bg-white flex justify-between p-4 rounded-lg shadow-lg border-l-6 ${ln.paid?"border-green-400":"border-yellow-400"}`}>
-        <div className="flex">
-         <div className="bg-blue-100 p-4 rounded-full flex items-center justify-center">
+        <div className={`mt-3 bg-white flex justify-between items-center p-4 rounded-xl shadow-lg border-l-[6px] lg:px-8 lg:py-6 ${ln.paid?"border-green-400":"border-yellow-400"}`}>
+        <div className="flex items-center lg:gap-4 lg:flex-1">
+         <div className="bg-blue-100 w-14 h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center">
             <h1 className="font-bold text-blue-600  ">{String(d.getDate()).padStart(2,"0")}</h1>
          </div>
          <div className="p-1 ml-2">
-            <div className="flex gap-1">
+            <div className="flex lg:gap-3 gap-1 items-center">
                  <h1 className="font-bold"> {d.toLocaleString("en-US",{month:"short"})}</h1>
-                <h1 className="text-blue-600 text-center flex items-center font-bold"><IndianRupee className="h-4 w-5"/>{(ln.installmentamount||0).toLocaleString()}</h1>
+                <h1 className="text-blue-600 text-center flex items-center font-bold "><IndianRupee className="h-4 w-5"/>{(ln.installmentamount||0).toLocaleString()}</h1>
             </div>
-            <h1 className="text-gray-700 text-sm">Due {d.toLocaleString("en-US",{month:"short"})} {d.getDate()},{d.getFullYear()}</h1>
+            <h1 className="text-gray-700 text-sm whitespace-nowrap">Due {d.toLocaleString("en-US",{month:"short"})} {d.getDate()},{d.getFullYear()}</h1>
             
          </div>
          </div>
-         <div className="">
+         <div className="flex flex-col items-center lg:items-end justify-center lg:w-60">
             {/* <h1 className="text-blue-600 text-center flex items-center"><IndianRupee className="h-4 w-5"/>{ln.installmentamount}</h1> */}
             <div className="p-1 mt-1">
-                {ln.paid?(<h1 className="font-bold bg-green-300 border-1 border-green-800 text-black text-sm rounded px-7 py-2 flex">Paid ✓</h1>):(<button className="font-bold bg-blue-800 text-white text-sm rounded  p-2 py-3 flex" onClick={()=>{
+                {ln.paid?(<h1 className="font-bold bg-green-300 border border-green-700 text-sm rounded-lg px-4 whitespace-nowrap text-center py-3">Paid ✓</h1>):(<button className="font-bold bg-blue-700 text-white rounded-lg px-3 py-2  lg:px-6 lg:py-3 lg:text-base transition hover:bg-blue-800" onClick={()=>{
                     setshowModal(true)
                 }}> Mark as Paid</button>)}
             </div>
             {
                  ln.paid && ln.paidDate && (
-                <p className="text-xs text-green-600">
+                <p className="text-xs text-green-600 text-center mt-1">
                 Paid on {
                 new Date(ln.paidDate).toLocaleDateString("en-GB", {
                     day: "2-digit",

@@ -25,11 +25,21 @@ function Up_Payment(){
         fetchpayments()
     },[])
     return(
-        <div className="mt-4">
-         <div className="flex justify-between">
-            <h1 className="font-bold">Upcoming Payements</h1>
-            <h1 className="font-bold text-blue-700 cursor-pointer " onClick={seeAll}>{allDetails?"show less":"See All"}</h1>
-         </div>
+<div className="bg-white rounded-3xl shadow-md p-6">
+
+  <div className="flex justify-between items-center mb-4">
+    <h1 className="text-xl font-bold">
+      Upcoming Payments
+    </h1>
+
+    <button
+      onClick={seeAll}
+      className="text-blue-600 font-semibold text-center mt-1 cursor-pointer"
+    >
+      {allDetails ? "Show Less" : "See All"}
+    </button>
+  </div>
+  <div className="space-y-4">
         {   payments.length>0?(
             (allDetails?payments:payments.slice(0,4)).map(payment=>(
                 <Payment_card key={payment._id} payment={payment}/>
@@ -39,6 +49,7 @@ function Up_Payment(){
             </div>
             )
         }
+        </div>
         </div>
     )
 }

@@ -43,16 +43,22 @@ function Monthly_Tracking(props){
     return true;
    })
     return(
-        <div className="mt-4">
-          <div className="flex justify-between">
-            <h1 className="font-bold">Monthly Tracking</h1>
-            {/* <h1 className="text-blue-700 flex items-center gap-1">Filter<SlidersHorizontal className="h-4 w-4"/></h1> */}
-             <select className="border border-2 border-blue-600 rounded p-1" value={filter} onChange={(e)=>setFilter(e.target.value)}>
-              <option value="all">All</option>
-              <option value="paid">Paid</option>
-              <option value="unpaid">Unpaid</option>
-             </select>
-          </div>
+        <div className="mt-6 bg-white rounded-2xl shadow-lg p-5">
+<div className="flex flex-col md:flex-row md:justify-between md:items-center mb-5">
+  <h1 className="text-2xl font-bold">
+    Monthly Tracking
+  </h1>
+
+  <select
+    className="border border-gray-300 bg-white rounded-xl px-4 py-2 mt-3 md:mt-0"
+    value={filter}
+    onChange={(e)=>setFilter(e.target.value)}
+  >
+    <option value="all">All Installments</option>
+    <option value="paid">Paid</option>
+    <option value="unpaid">Pending</option>
+  </select>
+</div>
         {
           filteredInstallments.map((item)=>(
             <Month key={item._id} ln={item}/>

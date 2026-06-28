@@ -23,12 +23,32 @@ function Dashboard(){
   useEffect(()=>{
     fetchDetails()
   },[])
-    return(
-      <div className=' bg-gray-100 mb-4'>
-      <Total_Amount loan={LoanDetails}/>
-      <Loan_Type/>
-      <Up_Payment/>
-    </div>
-    )
+return(
+<div className="bg-gray-100 min-h-screen p-4 lg:px-8 lg:mb-0 mt-10 mb-7 lg:mt-0">
+
+  <div className="max-w-7xl mx-auto">
+
+    <h1 className="text-3xl font-bold mb-4">
+      Dashboard
+    </h1>
+
+    <Total_Amount loan={LoanDetails}/>
+
+    {/* <div className="lg:grid lg:grid-cols-3 lg:gap-6 mt-6"> */}
+
+      {/* <div className="lg:col-span-1">
+        <Loan_Type/>
+      </div> */}
+
+      <div className="mt-6">
+        <Up_Payment/>
+      </div>
+
+    {/* </div> */}
+
+  </div>
+
+</div>
+)
 }
 export default Dashboard;

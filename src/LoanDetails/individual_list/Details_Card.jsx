@@ -31,7 +31,10 @@ function Details_Card(props){
         toast.error(err)
         }
  }
-
+const progress =
+loan.term > 0
+? (loan.paidCount / loan.term) * 100
+: 0;
 
  const Askdelete=(id)=>{
     console.log("askdelete")
@@ -40,7 +43,7 @@ function Details_Card(props){
  }
 
     return(
-        <div className="bg-white shadow-lg rounded-lg mt-3">
+        <div className="bg-white shadow-xl rounded-2xl p-2 sticky top-4">
         <div className="flex justify-between p-3 items-center">
             <h1 className="font-bold text-md ">{loan.name}</h1>
             {/* <h1 className=" text-sm bg-green-100 p-2 rounded-full flex gap-1"><TrendingUp className="h-5 w-5 text-green-600"/>On Track</h1> */}
@@ -54,7 +57,19 @@ function Details_Card(props){
             <div className="flex justify-between">
                 <h1 className="flex text-3xl text-blue-600 font-bold items-center justify-center"><IndianRupee className="h-5 w-5" strokeWidth={2}/>{((loan.totalamount||0)-(loan.paidAmount||0)).toLocaleString()}</h1>
             </div>
+  <div className="mt-4">
+  <div className="flex justify-between text-sm mb-1">
+    <span>Loan Progress</span>
+    <span>{Math.round(progress)}%</span>
+  </div>
 
+  <div className="w-full bg-gray-200 rounded-full h-3">
+    <div
+      className="bg-green-500 h-3 rounded-full"
+      style={{ width: `${progress}%` }}
+    />
+  </div>
+</div>
 
             <div className="flex justify-between mt-4">
                 <div className="">

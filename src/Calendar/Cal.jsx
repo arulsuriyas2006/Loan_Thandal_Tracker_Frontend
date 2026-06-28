@@ -10,7 +10,7 @@ function Cal(props){
  const pendingDates = pending;
 
     return(
-<div className="mt-4">
+<div className="mt-4 p-2">
       <DayPicker
         mode="single"
         selected={selectedDate}

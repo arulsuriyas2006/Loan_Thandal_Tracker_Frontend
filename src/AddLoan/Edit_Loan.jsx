@@ -1,5 +1,5 @@
 import { toast,ToastContainer } from "react-toastify"
-import { Cross, CrosshairIcon, CrossIcon, IndianRupeeIcon,Plus, SquarePen } from "lucide-react";
+import { ArrowLeft, Cross, CrosshairIcon, CrossIcon, IndianRupeeIcon,Plus, SquarePen } from "lucide-react";
 import { useEffect, useState } from "react";
 import Type from "./Type";
 import axios from "axios"
@@ -40,7 +40,7 @@ const Edit_Loan=()=>{
         const res = await axios.put(`http://localhost:5000/loan/editloan/${id}`,Loan,{withCredentials:true})
         toast.success("successfully updated")
         setTimeout(() => {
-         navigate("/loandashboard")
+         navigate(`/details/${id}`)
         }, 2000);
         }catch(err){
             if(err.response?.status==401){
@@ -55,61 +55,265 @@ const Edit_Loan=()=>{
     useEffect(()=>{
         fetchLoan();
     },[id])
-    return(
-    <div className="max-w-full mx-auto bg-gray-100 p-4">
-         <div className="bg-blue-100 rounded-lg p-4 shadow-md">
-            <h1>Edit Transaction</h1>
-            <h1 className="text-3xl font-bold">Enter Details</h1>
-         </div>
-         <Type/>
-  <form action="" onSubmit={handleEdit}>
-     <div className="mt-4">
-        <div className="mt-3">
-            <h1 className="text-1xl font-bold">Person or Company</h1>
-            <input type="text" placeholder="e.g Suriya/Company" value={Loan.name} name="name" onChange={handleChange} className="w-full bg-blue-100 p-4 rounded-lg mt-2 outline-none border-none"/>
-        </div>
-        <div className="mt-3">
-            <div className="flex items-center">
-            <h1 className="text-1xl font-bold">Total Amount</h1>
-            <IndianRupeeIcon className="w-5 h-5 ml-2"/>
+   return(
+<div className="max-w-4xl mx-auto mt-12 p-4 mb-10 lg:mt-0 lg:p-0 lg:mb-0">
+
+    <button
+        onClick={()=>navigate(`/details/${id}`)}
+        className="text-blue-800 gap-1 mt-2 mb-2 cursor-pointer lg:text-lg lg:mb-4 font-bold flex items-center"
+    >
+        <ArrowLeft size={20}/>
+        Back to Loans
+    </button>
+
+    <div className="bg-blue-100 rounded-xl p-6 shadow-md">
+        <h1 className="text-sm text-gray-600">
+            Edit Transaction
+        </h1>
+
+        <h1 className="text-3xl font-bold">
+            Update Details
+        </h1>
+    </div>
+
+    <div className="bg-white rounded-2xl shadow-lg p-6 mt-6">
+
+        {/* <Type/> */}
+
+        <form onSubmit={handleEdit}>
+
+            <div className="mt-4">
+
+                {/* Name */}
+                <div className="mt-3">
+                    <h1 className="font-bold">
+                        Person or Company
+                    </h1>
+
+                    <input
+                        type="text"
+                        placeholder="e.g Suriya/Company"
+                        value={Loan.name}
+                        name="name"
+                        onChange={handleChange}
+                        className="
+                        w-full
+                        p-4
+                        rounded-xl
+                        bg-gray-50
+                        border
+                        border-gray-200
+                        focus:border-blue-500
+                        focus:ring-2
+                        focus:ring-blue-200
+                        outline-none"
+                    />
+                </div>
+
+                {/* Amount */}
+                <div className="mt-3">
+                    <div className="flex items-center">
+                        <h1 className="font-bold">
+                            Total Amount
+                        </h1>
+
+                        <IndianRupeeIcon className="w-5 h-5 ml-2"/>
+                    </div>
+
+                    <input
+                        type="number"
+                        value={Loan.totalamount}
+                        name="totalamount"
+                        onChange={handleChange}
+                        className="
+                        w-full
+                        p-4
+                        rounded-xl
+                        bg-gray-50
+                        border
+                        border-gray-200
+                        focus:border-blue-500
+                        focus:ring-2
+                        focus:ring-blue-200
+                        outline-none"
+                    />
+                </div>
+
+                {/* Frequency + Date */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
+
+                    <div>
+                        <h1 className="font-bold">
+                            Frequency
+                        </h1>
+
+                        <select
+                            value={Loan.frequency}
+                            name="frequency"
+                            onChange={handleChange}
+                            className="
+                            w-full
+                            p-4
+                            rounded-xl
+                            bg-gray-50
+                            border
+                            border-gray-200
+                            focus:border-blue-500
+                            focus:ring-2
+                            focus:ring-blue-200
+                            outline-none"
+                        >
+                            <option value="d">Daily</option>
+                            <option value="w">Weekly</option>
+                            <option value="m">Monthly</option>
+                            <option value="y">Yearly</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <h1 className="font-bold">
+                            Start Date
+                        </h1>
+
+                        <input
+                            type="date"
+                            value={Loan.date}
+                            name="date"
+                            onChange={handleChange}
+                            className="
+                            w-full
+                            p-4
+                            rounded-xl
+                            bg-gray-50
+                            border
+                            border-gray-200
+                            focus:border-blue-500
+                            focus:ring-2
+                            focus:ring-blue-200
+                            outline-none"
+                        />
+                    </div>
+
+                </div>
+
+                {/* Installment + Term */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
+
+                    <div>
+                        <h1 className="font-bold">
+                            Installment Amount
+                        </h1>
+
+                        <input
+                            type="text"
+                            placeholder="₹ 10,000"
+                            value={Loan.installmentamount}
+                            name="installmentamount"
+                            onChange={handleChange}
+                            className="
+                            w-full
+                            p-4
+                            rounded-xl
+                            bg-gray-50
+                            border
+                            border-gray-200
+                            focus:border-blue-500
+                            focus:ring-2
+                            focus:ring-blue-200
+                            outline-none"
+                        />
+                    </div>
+
+                    <div>
+                        <h1 className="font-bold">
+                            Term (Months)
+                        </h1>
+
+                        <input
+                            type="text"
+                            placeholder="12"
+                            value={Loan.term}
+                            name="term"
+                            onChange={handleChange}
+                            className="
+                            w-full
+                            p-4
+                            rounded-xl
+                            bg-gray-50
+                            border
+                            border-gray-200
+                            focus:border-blue-500
+                            focus:ring-2
+                            focus:ring-blue-200
+                            outline-none"
+                        />
+                    </div>
+
+                </div>
+
+                <div className="border-t border-gray-300 mt-6"/>
+
+                {/* Buttons */}
+                <div className="flex gap-3 mt-8">
+
+                    <button
+                        type="submit"
+                        className="
+                        w-full
+                        bg-blue-600
+                        hover:bg-blue-700
+                        transition
+                        lg:p-4
+                        p-2
+                        rounded-xl
+                        text-white
+                        font-semibold
+                        flex
+                        items-center
+                        justify-center
+                        gap-2
+                        shadow-md"
+                    >
+                        <SquarePen
+                            className="h-5 w-5"
+                            strokeWidth={3}
+                        />
+
+                        Update Loan
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={()=>
+                            navigate(`/details/${id}`)
+                        }
+                        className="
+                        w-full
+                        bg-red-500
+                        hover:bg-red-600
+                        transition
+                        p-4
+                        rounded-xl
+                        text-white
+                        font-semibold
+                        shadow-md
+                        cursor-pointer"
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
             </div>
-            <input type="number" placeholder="0" value={Loan.totalamount} name="totalamount" onChange={handleChange} className=" w-full max-w-full mx-auto bg-blue-100 p-4 rounded-lg mt-2 outline-none border-none"/>
-        </div>
-        <div className="w-full mx-auto flex justify-between gap-3 mt-3">
-            <div className="w-full">
-            <h1 className="text-1xl font-bold">Frequency</h1>
-            <select value={Loan.frequency} name="frequency" onChange={handleChange} className="w-full bg-blue-100 rounded-lg p-4 mt-2 outline-none border-none">
-                <option value="d">Daily</option>
-                <option value="w">weekly</option>
-                <option value="m">Monthly</option>
-                <option value="y">Yearly</option>
-            </select>
-            </div>
-            <div className="w-full">
-            <h1 className="text-1xl font-bold">Start Date</h1>
-            <input type="date" value={Loan.date} name="date" onChange={handleChange} className=" w-full bg-blue-100 rounded-lg p-4 mt-2 outline-none border-none"/>
-            </div>
-        </div>
-        <div className="w-full mx-auto flex justify-between gap-3 mt-3">
-            <div className="w-full">
-            <h1 className="text-1xl font-bold">Installment AMount</h1>
-            <input type="text" placeholder="₹ 10,000" value={Loan.installmentamount} name="installmentamount" onChange={handleChange} className="w-full bg-blue-100 p-4 rounded-lg mt-2 outline-none border-none"/>
-            </div>
-            <div className="w-full">
-            <h1 className="font-bold">Term(Months)</h1>
-            <input type="text" placeholder="12" value={Loan.term} name="term" onChange={handleChange} className="w-full bg-blue-100 p-4 rounded-lg mt-2 outline-none border-none"/>
-            </div>
-        </div>
-        <div className="border-t border-gray-300  mt-6"></div>
-        <div className="flex gap-1">
-        <button type="submit" className="w-full bg-blue-700 p-4 cursor-pointer rounded-full mt-8 text-white font-bold flex items-center justify-center gap-2"><SquarePen className="h-5 w-5" strokeWidth={3}/>Edit Loan</button>
-        <button type="submit" className="w-full bg-red-700 p-4 cursor-pointer rounded-full mt-8 text-white font-bold flex items-center justify-center gap-2"onClick={()=>{navigate("/loandashboard")}}>Cancel</button>
-     </div>
-     </div>
-      <ToastContainer/>
-     </form>
-     </div>      
-    )
+
+            <ToastContainer/>
+
+        </form>
+
+    </div>
+
+</div>
+)
 }
 
 export default Edit_Loan;

@@ -39,27 +39,83 @@ function Calendar_view(){
      },[])
      console.log(calInstallments)
     return(
-        <div className="bg-gray-200 p-4 pt-2 mb-0">
-        <Cal paid={paidDates} pending={pendingDates} selectedDate={selectedDate} setSelectedDate={setSelectedDate} month={Month} setMonth={setMonth}/>
-        <div className='flex justify-between'>
-        <h1 className='flex items-center justify-center font-bold'>Details of {
-            Month.toLocaleString("en-US",{
-                month:"long",
-                year:"numeric"
-            })}</h1>
-         <h1 className="text-blue-800 font-bold  flex items-center justify-center cursor-pointer" onClick={()=>setSelectedDate(null)}>Show Entire Month</h1>
-            </div>
-        {   sortInstallments.length>0?(
-            sortInstallments.map(item=>(
-                <Emi_card key={item._id} installment={item}/>
-            ))
-        ):(
-        <div className='bg-white rounded-lg p-6 mt-2 shadow-lg text-center'>
-        <h1 className='font-medium text-gray-700'>No installments found</h1>
-        <p className='text-sm text-gray-500 mt-1'>No EMI payments scheduled for this date</p>
+        <div className=" px-6 py-4 min-h-screen mt-12 mb-8 lg:mt-0 lg:mb-0 ">
+                <h1 className=" text-3xl font-bold mb-4">
+      Calender View
+    </h1>
+<div className="max-w-7xl mx-auto lg:grid lg:grid-cols-5 lg:gap-6">
+
+    {/* Calendar Section */}
+    <div className="lg:col-span-2">
+
+        <div className="bg-white rounded-2xl shadow-lg p-2">
+
+            <Cal
+              paid={paidDates}
+              pending={pendingDates}
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              month={Month}
+              setMonth={setMonth}
+            />
+
         </div>
-    )
-        }
+
+    </div>
+
+    {/* Installment Section */}
+    <div className="lg:col-span-3 mt-4 lg:mt-0">
+
+        <div className="bg-white rounded-2xl shadow-lg p-6 h-full">
+
+            <div className="flex justify-between items-center mb-4">
+
+                <h1 className="font-bold text-xl">
+                    Details of {
+                        Month.toLocaleString("en-US",{
+                            month:"long",
+                            year:"numeric"
+                        })
+                    }
+                </h1>
+
+                <button
+                  onClick={()=>setSelectedDate(null)}
+                  className="text-blue-600 font-semibold cursor-pointer"
+                >
+                    Show Entire Month
+                </button>
+
+            </div>
+
+            {
+                sortInstallments.length > 0 ? (
+                    sortInstallments.map(item=>(
+                        <Emi_card
+                          key={item._id}
+                          installment={item}
+                        />
+                    ))
+                ) : (
+                    <div className="bg-gray-50 rounded-xl p-10 text-center">
+
+                        <h1 className="font-semibold text-gray-700">
+                            No installments found
+                        </h1>
+
+                        <p className="text-sm text-gray-500 mt-2">
+                            No EMI payments scheduled
+                        </p>
+
+                    </div>
+                )
+            }
+
+        </div>
+
+    </div>
+
+</div>
         </div>
     )
 }
