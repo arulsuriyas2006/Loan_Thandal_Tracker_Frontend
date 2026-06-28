@@ -17,7 +17,7 @@ function Month(props){
             setshowModal(false);
             toast.success("successfully updated")
             setTimeout(()=>{
-                navigate(`/details/${ln.loanId}`)
+                window.location.reload();
             },2000)
         }catch(err){
             if(err.response?.status==401){
@@ -45,7 +45,7 @@ function Month(props){
          <div className="flex flex-col items-center lg:items-end justify-center lg:w-60">
             {/* <h1 className="text-blue-600 text-center flex items-center"><IndianRupee className="h-4 w-5"/>{ln.installmentamount}</h1> */}
             <div className="p-1 mt-1">
-                {ln.paid?(<h1 className="font-bold bg-green-300 border border-green-700 text-sm rounded-lg px-4 whitespace-nowrap text-center py-3">Paid ✓</h1>):(<button className="font-bold bg-blue-700 text-white rounded-lg px-3 py-2  lg:px-6 lg:py-3 lg:text-base transition hover:bg-blue-800" onClick={()=>{
+                {ln.paid?(<h1 className="font-bold bg-green-300 border border-green-700 text-sm rounded-lg px-4 whitespace-nowrap text-center py-3">Paid ✓</h1>):(<button className="font-bold bg-blue-700 text-white rounded-lg px-3 py-2  lg:px-6 lg:py-3 lg:text-base transition hover:bg-blue-800 cursor-pointer" onClick={()=>{
                     setshowModal(true)
                 }}> Mark as Paid</button>)}
             </div>
