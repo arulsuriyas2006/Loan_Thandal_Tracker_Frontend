@@ -60,7 +60,7 @@ if(loading){
     {/* Calendar Section */}
     <div className="lg:col-span-2">
 
-        <div className="bg-white rounded-2xl shadow-lg p-2">
+        <div className="bg-white rounded-2xl shadow-lg">
 
             <Cal
               paid={paidDates}

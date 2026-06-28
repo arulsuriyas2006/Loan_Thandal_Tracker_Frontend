@@ -1,24 +1,68 @@
 @import "tailwindcss";
+
+/* Main Calendar Container */
 .custom-daypicker {
-  width:100%;
-  --rdp-cell-size: 38px;
+  width: 100%;
   font-family: sans-serif;
-  background-color: #f5f5f7;
-  padding: 10px;
-  border-radius: 10px;
-  margin:0px 10px;
+  background: #f5f5f7;
+  border-radius: 12px;
+  overflow-x: hidden;
+
+  /* Responsive sizing */
+  --rdp-cell-size: clamp(34px, 4vw, 48px);
+  padding: clamp(10px, 3vw, 40px);
 }
 
+/* Phone */
+@media (max-width: 767px) {
+  .custom-daypicker {
+    --rdp-cell-size: 36px;
+    padding: 10px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .custom-daypicker {
+    --rdp-cell-size: 40px;
+    padding: 20px;
+  }
+}
+
+/* Laptop */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .custom-daypicker {
+    --rdp-cell-size: 44px;
+    padding: 35px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1440px) {
+  .custom-daypicker {
+    --rdp-cell-size: 48px;
+    padding: 40px;
+  }
+}
+
+/* Calendar Layout */
 .rdp {
+  width: 100%;
   margin: 0;
 }
-.rdp-month{
-  width:100%;
+
+.rdp-month {
+  width: 100%;
 }
 
+.rdp-table {
+  width: 100%;
+}
+
+/* Header */
 .rdp-caption {
   font-weight: 700;
-  font-size: 18px;
+  font-size: clamp(16px, 2vw, 20px);
   color: #111827;
 }
 
@@ -28,26 +72,31 @@
   font-weight: 500;
 }
 
+/* Days */
 .rdp-day {
   border-radius: 9999px;
-  font-size: 14px;
+  font-size: clamp(12px, 1.5vw, 15px);
   color: #111827;
   position: relative;
-}
-
-.rdp-day_selected {
-  background: #2563eb !important;
-  color: white !important;
+  transition: all 0.2s ease;
 }
 
 .rdp-day:hover {
   background: #dbeafe;
 }
 
+/* Selected Date */
+.rdp-day_selected {
+  background: #2563eb !important;
+  color: white !important;
+}
+
+/* Outside Month Dates */
 .rdp-day_outside {
   color: #d1d5db;
 }
 
+/* Paid Indicator */
 .paid-day::after {
   content: "";
   width: 6px;
@@ -60,6 +109,7 @@
   transform: translateX(-50%);
 }
 
+/* Pending Indicator */
 .pending-day::after {
   content: "";
   width: 6px;
